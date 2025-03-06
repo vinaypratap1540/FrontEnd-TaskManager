@@ -1,0 +1,80 @@
+.task-container {
+    width: 50%;
+    margin: 50px auto;
+    text-align: center;
+    padding: 20px;
+    background: rgba(30, 60, 114, 0.9);
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .task-input input, .task-input textarea {
+    width: 90%;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+  }
+
+  .task-input button {
+    padding: 10px 20px;
+    background-color: #ffcc00;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .task-list {
+    margin-top: 20px;
+  }
+
+  .task-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .task-card {
+    background: white;
+    color: black;
+    padding: 15px;
+    width: 300px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .task-card button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #28a745;
+    color: white;
+  }
+
+  .task-card button:hover {
+    background-color: #218838;
+  }
+
+  .delete button {
+    background-color: #dc3545;
+    margin-left: 10px;
+  }
+
+  .delete button:hover {
+    background-color: #c82333;
+  }
+
+  @media (max-width: 768px) {
+    .task-container {
+      width: 90%;
+    }
+    .task-card-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
