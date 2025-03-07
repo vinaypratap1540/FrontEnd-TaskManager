@@ -7,7 +7,10 @@ export const appStore = configureStore({
     middleware:(getDefaultMiddleware)=> getDefaultMiddleware().concat(authApi.middleware)
 });
 
-const initializeApp = async()=>{
-    await appStore.dispatch(authApi.endpoints.getUserProfile.initiate({},{forceRefresh:true}))
-}
-initializeApp()
+const initializeApp = async () => {
+    const { data } = await appStore.dispatch(authApi.endpoints.getUserProfile.initiate());
+    if (data) {
+        appStore.dispatch(userLoggedIn({ user: data.user })); //Ensure user is stored
+    }
+};
+initializeApp();
