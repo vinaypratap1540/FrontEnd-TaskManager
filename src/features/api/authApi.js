@@ -1,27 +1,27 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { userLoggedIn, userLoggedOut } from "../authSlice.js";
 
-const BASE_API = "https://backend-taskmanager-n9g2.onrender.com/api/v1/"; //  Fixed base URL
+const BASE_API = "https://backend-taskmanager-n9g2.onrender.com/api/v1/";
 
 export const authApi = createApi({
   reducerPath: "authApi",
   tagTypes: ["Refetch_Creator_Tasks"],
   baseQuery: fetchBaseQuery({
-    baseUrl: BASE_API, //  Use fixed base URL
+    baseUrl: BASE_API,
     credentials: "include",
   }),
   endpoints: (builder) => ({
-    //  Authentication Endpoints (Need "users/")
+    // Authentication Endpoints
     registerUser: builder.mutation({
       query: (inputData) => ({
-        url: "users/register", 
+        url: "users/register",
         method: "POST",
         body: inputData,
       }),
     }),
     loginUser: builder.mutation({
       query: (inputData) => ({
-        url: "users/login", 
+        url: "users/login",
         method: "POST",
         body: inputData,
       }),
@@ -49,7 +49,7 @@ export const authApi = createApi({
     }),
     getUserProfile: builder.query({
       query: () => ({
-        url: "users/me", 
+        url: "users/me",
         method: "GET",
       }),
       async onQueryStarted(_, { queryFulfilled, dispatch }) {
@@ -62,10 +62,9 @@ export const authApi = createApi({
       },
     }),
 
-    // ✅ Task Endpoints (No "users/")
     createTasks: builder.mutation({
       query: ({ title, description, dueDate }) => ({
-        url: "tasks",
+        url: "users/tasks", 
         method: "POST",
         body: { title, description, dueDate },
       }),
@@ -73,14 +72,14 @@ export const authApi = createApi({
     }),
     getCreatedTask: builder.query({
       query: () => ({
-        url: "tasks/user", 
+        url: "users/tasks/user",
         method: "GET",
       }),
       providesTags: ["Refetch_Creator_Tasks"],
     }),
     updateTaskCompletion: builder.mutation({
       query: (taskId) => ({
-        url: `tasks/${taskId}`, 
+        url: `users/tasks/${taskId}`,
         method: "PATCH",
         body: {},
       }),
@@ -88,7 +87,7 @@ export const authApi = createApi({
     }),
     deleteTask: builder.mutation({
       query: (taskId) => ({
-        url: `tasks/${taskId}`, 
+        url: `users/tasks/${taskId}`, 
         method: "DELETE",
       }),
       invalidatesTags: ["Refetch_Creator_Tasks"],
@@ -106,3 +105,4 @@ export const {
   useUpdateTaskCompletionMutation,
   useDeleteTaskMutation,
 } = authApi;
+
