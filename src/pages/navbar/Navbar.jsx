@@ -12,15 +12,17 @@ const Navbar = () => {
   const [logoutUser,{data:logoutData,isError:logoutIsError,isSuccess:logoutIsSuccess}] = useLogoutUserMutation();
   const logoutHandler=async()=>{
     await logoutUser()
+    localStorage.removeItem("auth"); // Ensure user session is removed from local storage
+    sessionStorage.clear(); // Clear session storage if used
+
+    setTimeout(() => {
+    window.location.reload(); // Refresh the page AFTER clearing state
+  }, 500);
   }
   useEffect(()=>{
     if(logoutIsSuccess){
       toast.success(logoutData?.message || "User logged out successfully")
       navigate("/login")
-
-      setTimeout(() => {     // Refresh page when I will do logout
-        window.location.reload();
-      }, 500);
     }
     if(logoutIsError){
       toast.success(logoutIsError?.message || "User logged out successfully")
