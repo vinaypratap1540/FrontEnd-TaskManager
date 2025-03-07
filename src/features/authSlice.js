@@ -1,23 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
-const initialState={
-   user:null,
-   isAuthenticated:false
-}
+import { authApi } from "../api/authApi"; 
+
+const initialState = {
+   user: null,
+   isAuthenticated: false
+};
 
 const authSlice = createSlice({
-    name:"authSlice",
+    name: "authSlice",
     initialState,
-    reducers:{
-        userLoggedIn:(state,action)=>{
-          state.user = action.payload.user;
-          state.isAuthenticated = true
+    reducers: {
+        userLoggedIn: (state, action) => {
+            state.user = action.payload.user;
+            state.isAuthenticated = true;
         },
-        userLoggedOut:(state)=>{
-          state.user=null;
-          state.isAuthenticated=false
+        userLoggedOut: (state) => {
+            state.user = null;
+            state.isAuthenticated = false;
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(authApi.util.resetApiState, (state) => {
+            state.user = null;
+            state.isAuthenticated = false;
+        });
     }
-})
+});
 
-export const {userLoggedIn,userLoggedOut} = authSlice.actions;
+export const { userLoggedIn, userLoggedOut } = authSlice.actions;
 export default authSlice.reducer;
