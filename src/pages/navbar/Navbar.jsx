@@ -4,8 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useLogoutUserMutation } from "../../features/api/authApi";
 import { toast } from "react-toastify";
-import { userLoggedOut } from "../../features/auth/authSlice";
-import { authApi } from "../../features/api/authApi"; // Import authApi to reset cache
+import { userLoggedOut } from "../../features/authSlice.js";
+import { authApi } from "../../features/api/authApi"; 
 
 const Navbar = () => {
   const navigate = useNavigate();
